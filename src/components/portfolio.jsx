@@ -10,6 +10,8 @@ const user = {
   whatsapp: "https://wa.me/6304211149",
   github: "https://github.com/Gadisatyanarayana",
   linkedin: "https://www.linkedin.com/in/gadi-satya-narayana-270b31296",
+  // Place a file named resume.pdf in frontend/public to enable download
+  resume: "/resume.pdf",
   education: [
     { 
       course: "B.Tech in Computer Science", 
@@ -113,7 +115,7 @@ export default function MinecraftPortfolio() {
 
   // Use IntersectionObserver to detect active section reliably (accounts for header height)
   useEffect(() => {
-    const sections = ['home', 'about', 'skills', 'projects', 'contact'];
+    const sections = ['home', 'about', 'skills', 'projects', 'what-i-offer', 'contact'];
     const navHeight = document.querySelector('nav')?.offsetHeight || 80;
 
     const observerOptions = {
@@ -196,6 +198,7 @@ export default function MinecraftPortfolio() {
             {[
               { id: 'home', label: 'Home' },
               { id: 'about', label: 'About' },
+              { id: 'what-i-offer', label: 'Services' },
               { id: 'skills', label: 'Skills' },
               { id: 'projects', label: 'Projects' },
               { id: 'contact', label: 'Contact' }
@@ -211,12 +214,25 @@ export default function MinecraftPortfolio() {
             ))}
           </ul>
 
+          {/* Desktop Resume Button */}
+          {!isMobile && (
+            <a
+              href={user.resume}
+              download
+              className="resume-btn"
+              style={styles.resumeButton}
+            >
+              ⬇️ Resume
+            </a>
+          )}
+
           {/* Mobile Menu Dropdown */}
           {isMobileMenuOpen && (
             <div style={styles.mobileMenu} className="mobile-menu">
               {[
                 { id: 'home', label: 'Home' },
                 { id: 'about', label: 'About' },
+                { id: 'what-i-offer', label: 'Services' },
                 { id: 'skills', label: 'Skills' },
                 { id: 'projects', label: 'Projects' },
                 { id: 'contact', label: 'Contact' }
@@ -233,6 +249,16 @@ export default function MinecraftPortfolio() {
                   {item.label}
                 </div>
               ))}
+              {/* Mobile Resume Button inside dropdown */}
+              <a
+                href={user.resume}
+                download
+                className="resume-btn"
+                style={{ ...styles.resumeButton, marginTop: '0.5rem' }}
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                ⬇️ Resume
+              </a>
             </div>
           )}
         </div>
@@ -365,6 +391,8 @@ export default function MinecraftPortfolio() {
             </div>
           </div>
         </section>
+
+        
 
         {/* Skills Section - 3 Categories */}
         <section id="skills" style={styles.card}>
@@ -525,6 +553,71 @@ export default function MinecraftPortfolio() {
             ))}
           </div>
         </section>
+          {/* What I Offer (moved under Projects) */}
+        <section id="what-i-offer" style={styles.card}>
+          <h2 style={styles.cardTitle}>
+            <span style={styles.cardIcon}>🧭</span> What I Offer
+          </h2>
+          <div style={styles.servicesGrid} className="services-grid">
+            {/* Full-Stack Web Development */}
+            <div style={styles.serviceCard} className="service-card">
+              <div style={styles.serviceIcon} className="service-icon">🪓</div>
+              <div style={styles.serviceTitle}>Full-Stack Web Development</div>
+              <div style={styles.serviceDesc}>
+                Building scalable apps with MERN, RESTful APIs and clean, maintainable code.
+              </div>
+              <div style={styles.serviceBadges}>
+                {['MERN', 'REST APIs', 'PostgreSQL', 'Docker'].map((b, i) => (
+                  <span key={i} style={styles.serviceBadge} className="service-badge">{b}</span>
+                ))}
+              </div>
+            </div>
+
+            {/* Modern UI/UX Design */}
+            <div style={styles.serviceCard} className="service-card">
+              <div style={styles.serviceIcon} className="service-icon">🎨</div>
+              <div style={styles.serviceTitle}>Modern UI/UX Design</div>
+              <div style={styles.serviceDesc}>
+                Pixel‑perfect interfaces with React, TypeScript, Tailwind CSS, and Shadcn UI.
+              </div>
+              <div style={styles.serviceBadges}>
+                {['Tailwind', 'Responsive', 'TypeScript', 'Shadcn UI'].map((b, i) => (
+                  <span key={i} style={styles.serviceBadge} className="service-badge">{b}</span>
+                ))}
+              </div>
+            </div>
+
+            {/* Database Design & Management */}
+            <div style={styles.serviceCard} className="service-card">
+              <div style={styles.serviceIcon} className="service-icon">🧱</div>
+              <div style={styles.serviceTitle}>Database Design & Management</div>
+              <div style={styles.serviceDesc}>
+                Efficient schemas and type‑safe operations with MongoDB, MySQL and PostgreSQL.
+              </div>
+              <div style={styles.serviceBadges}>
+                {['MongoDB', 'PostgreSQL', 'MySQL', 'Drizzle ORM'].map((b, i) => (
+                  <span key={i} style={styles.serviceBadge} className="service-badge">{b}</span>
+                ))}
+              </div>
+            </div>
+
+            {/* Java Programming (4th box) */}
+            <div style={styles.serviceCard} className="service-card">
+              <div style={styles.serviceIcon} className="service-icon">☕</div>
+              <div style={styles.serviceTitle}>Java Programming</div>
+              <div style={styles.serviceDesc}>
+                Robust OOP design, DSA‑driven performance, REST APIs and clean architecture.
+              </div>
+              <div style={styles.serviceBadges}>
+                {['Core Java', 'OOP', 'DSA', 'APIs'].map((b, i) => (
+                  <span key={i} style={styles.serviceBadge} className="service-badge">{b}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        
 
         {/* Contact Section */}
         <section id="contact" style={styles.contactCard}>
@@ -789,6 +882,93 @@ export default function MinecraftPortfolio() {
           .deploy-btn:active {
             transform: translateY(-2px) scale(0.98);
             box-shadow: 0 2px 0 #8a7500 !important;
+          }
+
+          /* Minecraft hover motions for What I Offer */
+          .service-card {
+            position: relative;
+            transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease, border-color 180ms ease;
+            will-change: transform, box-shadow;
+          }
+
+          .service-card:hover {
+            transform: translateY(-12px) rotate(-1deg) scale(1.03);
+            box-shadow: 0 14px 0 #1a2a0d, 0 0 35px rgba(255,215,0,0.25), inset 0 4px 0 rgba(255,255,255,0.12);
+            border-color: #9fd96a !important;
+            filter: saturate(1.08);
+          }
+
+          .service-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 12px;
+            background: linear-gradient(135deg, transparent 0%, rgba(255,215,0,0.15) 50%, transparent 100%);
+            pointer-events: none;
+            transform: translateX(-120%);
+            animation: none;
+          }
+
+          .service-card:hover::after {
+            animation: pixelShimmer 900ms ease-out forwards;
+          }
+
+          .service-icon {
+            transition: transform 220ms cubic-bezier(0.68, -0.55, 0.265, 1.55), filter 220ms ease;
+            display: inline-block;
+          }
+
+          .service-card:hover .service-icon {
+            transform: translateY(-6px) rotate(-6deg) scale(1.12);
+            filter: drop-shadow(0 0 18px rgba(255,215,0,0.4));
+          }
+
+          .service-badge {
+            transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+          }
+
+          .service-card:hover .service-badge {
+            animation: badgePop 300ms ease-out;
+            border-color: #7da83c !important;
+            box-shadow: inset 0 2px 0 rgba(255,255,255,0.12), 0 0 12px rgba(125,168,60,0.25);
+          }
+
+          @keyframes pixelShimmer {
+            0% { transform: translateX(-120%); opacity: 0; }
+            30% { opacity: 1; }
+            100% { transform: translateX(120%); opacity: 0; }
+          }
+
+          @keyframes badgePop {
+            0% { transform: scale(0.9); }
+            60% { transform: scale(1.08); }
+            100% { transform: scale(1.0); }
+          }
+
+          /* Minecraft resume motion button */
+          .resume-btn {
+            display: inline-block;
+            text-decoration: none;
+            color: #1a2a0d;
+            background: linear-gradient(135deg, #7cfc00 0%, #38a169 100%);
+            border: 4px solid #22543d;
+            padding: 0.75rem 1rem;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            box-shadow: 0 8px 0 #22543d, 0 0 18px rgba(124,252,0,0.25);
+            text-shadow: 0 1px 0 rgba(255,255,255,0.6);
+            transition: transform 120ms ease, box-shadow 120ms ease, filter 120ms ease;
+          }
+
+          .resume-btn:hover {
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: 0 12px 0 #22543d, 0 0 28px rgba(124,252,0,0.45);
+            filter: saturate(1.2);
+          }
+
+          .resume-btn:active {
+            transform: translateY(-2px) scale(0.98);
+            box-shadow: 0 4px 0 #22543d;
           }
 
           /* Social Icons Hover Effects */
@@ -1365,6 +1545,50 @@ const styles = {
     marginTop: '1rem',
     width: '100%'
   },
+  servicesGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+    gap: '1.25rem'
+  },
+  serviceCard: {
+    background: 'linear-gradient(135deg, #3f5d21 0%, #293b18 100%)',
+    border: '6px ridge #6fa83c',
+    borderRadius: '14px',
+    padding: '1.5rem',
+    boxShadow: '0 10px 0 #1a2a0d, inset 0 4px 0 rgba(255,255,255,0.08)',
+    transition: 'transform 0.18s ease, box-shadow 0.18s ease',
+    cursor: 'default'
+  },
+  serviceIcon: {
+    fontSize: '1.6rem',
+    marginBottom: '0.75rem'
+  },
+  serviceTitle: {
+    color: '#ffd700',
+    fontSize: '1rem',
+    marginBottom: '0.5rem',
+    textShadow: '2px 2px 0 #1a2a0d'
+  },
+  serviceDesc: {
+    color: '#e8f4d7',
+    fontSize: '0.75rem',
+    lineHeight: '1.6',
+    marginBottom: '0.85rem'
+  },
+  serviceBadges: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: '0.5rem'
+  },
+  serviceBadge: {
+    background: '#1f2e10',
+    color: '#cde7a0',
+    border: '3px solid #4f7a24',
+    borderRadius: '8px',
+    padding: '0.25rem 0.5rem',
+    fontSize: '0.6rem',
+    boxShadow: 'inset 0 2px 0 rgba(255,255,255,0.06)'
+  },
   contactCard: {
     background: 'linear-gradient(135deg, #4169e1 0%, #1e3a8a 100%)',
     border: '6px ridge #6495ed',
@@ -1524,5 +1748,19 @@ const styles = {
       transform: 'translateY(-4px) scale(1.02)',
       boxShadow: '0 6px 0 rgba(0,0,0,0.4), 0 0 25px rgba(255,215,0,0.4)'
     }
+  },
+  resumeButton: {
+    background: 'linear-gradient(135deg, #7cfc00 0%, #38a169 100%)',
+    border: '4px solid #22543d',
+    borderRadius: '10px',
+    padding: '0.75rem 1rem',
+    color: '#0b1e0b',
+    fontSize: '0.8rem',
+    textDecoration: 'none',
+    boxShadow: '0 8px 0 #22543d, 0 0 18px rgba(124,252,0,0.25)',
+    textShadow: '0 1px 0 rgba(255,255,255,0.6)',
+    fontFamily: "'Press Start 2P', monospace",
+    letterSpacing: '1px',
+    cursor: 'pointer'
   }
 }
