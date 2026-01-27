@@ -1,4 +1,9 @@
+
+
+
 import React, { useState, useEffect } from "react";
+import Resume from '../assets/Resume.pdf';
+import Photo from '../assets/Photo.img.jpeg';
 
 const user = {
   name: "Gadi Satya Narayana",
@@ -10,8 +15,7 @@ const user = {
   whatsapp: "https://wa.me/6304211149",
   github: "https://github.com/Gadisatyanarayana",
   linkedin: "https://www.linkedin.com/in/gadi-satya-narayana-270b31296",
-  // Place a file named resume.pdf in frontend/public to enable download
-  resume: "/resume.pdf",
+  resume: Resume,
   education: [
     { 
       course: "B.Tech in Computer Science", 
@@ -368,31 +372,104 @@ export default function MinecraftPortfolio() {
         </section>
 
         {/* About Section */}
-        <section id="about" style={styles.card}>
-          <h2 style={styles.cardTitle}>
-            <span style={styles.cardIcon}>📖</span> About Me
-          </h2>
-          <div style={styles.cardContent}>
-            <p style={styles.aboutText}>
-              Greetings, fellow adventurer! I'm a passionate full-stack developer who crafts 
-              digital experiences in the vast realm of web development. With my pickaxe of 
-              knowledge and sword of creativity, I mine through complex problems and build 
-              scalable solutions that stand the test of time.
-            </p>
-            <div style={styles.educationSection}>
-              <h3 style={styles.sectionSubtitle}>🎓 Education Quest</h3>
-              {user.education.map((edu, idx) => (
-                <div key={idx} style={styles.educationItem}>
-                  <div style={styles.educationCourse}>{edu.course}</div>
-                  <div style={styles.educationPlace}>{edu.place}</div>
-                  <div style={styles.educationYears}>{edu.years}</div>
-                </div>
-              ))}
+     
+{/* ABOUT — matches Projects card border format */}
+
+
+<section
+  id="about"
+  style={styles.card} /* same thin green rim + panel surface as your Projects card */
+  className="w-full scroll-mt-24 py-10 sm:py-12 px-4 sm:px-6 lg:px-8"
+>
+  <div className="mx-auto max-w-6xl md:max-w-7xl space-y-8">
+    <div className="text-center">
+      <h2 className="text-2xl sm:text-3xl font-bold tracking-wide">
+        <span className="mr-2">📖</span> About Me
+      </h2>
+    </div>
+
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-10 lg:gap-y-12 gap-x-8 lg:gap-x-12">
+      {/* Left column: centered photo placeholder + Minecraft caption card */}
+      <div className="lg:col-span-4 flex justify-center lg:justify-start">
+        <div className="flex w-56 sm:w-64 md:w-72 flex-col items-center gap-4">
+          {/* Photo with Minecraft frame */}
+          <div className="w-full rounded-xl p-4" style={{
+            background: 'linear-gradient(135deg, #8B7355 0%, #5A4A3A 100%)',
+            border: '3px solid #3d2817',
+            boxShadow: '0 0 0 2px #1a1a1a, inset 0 0 0 1px #86c232'
+          }}>
+            <img 
+              src={Photo} 
+              alt="Profile" 
+              className="w-full aspect-[3/4] object-cover rounded-lg"
+              style={{
+                border: '2px solid #86c232',
+                boxShadow: '0 4px 8px rgba(0,0,0,0.5)'
+              }}
+            />
+          </div>
+
+          {/* Caption card with 1px green rim (Minecraft vibe) */}
+          <div
+            style={{ ...styles.projectCard, padding: 14, borderColor: "#86c232" }}
+            className="w-full rounded-xl text-center"
+          >
+            <div className="text-lg sm:text-xl font-semibold tracking-wide text-gray-100">
+              Gadi SatyaNarayana
+            </div>
+            <div className="mt-1 text-[11px] sm:text-xs uppercase tracking-widest text-green-200/90">
+              MERN Stack Developer
+            </div>
+            <div className="mt-2 text-xs sm:text-sm opacity-90">
+              Samalkot, Andhra Pradesh
             </div>
           </div>
-        </section>
+        </div>
+      </div>
 
-        
+      {/* Right column: clear, readable details with consistent spacing */}
+      <div className="lg:col-span-8 flex flex-col gap-6">
+        <p className="text-sm sm:text-base leading-7">
+          Greetings, fellow adventurer! I&apos;m a passionate full‑stack developer who crafts
+          digital experiences in the vast realm of web development, mining through complex
+          problems with clean, scalable solutions that stand the test of time.
+        </p>
+
+        <div
+          style={{ ...styles.projectCard, padding: 16, borderColor: "#86c232" }}
+          className="rounded-xl"
+        >
+          <h3 className="text-xl font-semibold mb-3">🎓 Education Quest</h3>
+          <div className="flex flex-col gap-3">
+            {user?.education?.map((edu, idx) => (
+              <div
+                key={idx}
+                style={{
+                  ...styles.projectCard,
+                  padding: 12,
+                  borderColor: "rgba(134,194,50,.6)",
+                  background: "rgba(0,0,0,0.20)"
+                }}
+                className="rounded-xl"
+              >
+                <div className="font-bold mb-1">{edu.course}</div>
+                <div className="opacity-90 mb-1">{edu.place}</div>
+                <div className="opacity-80">{edu.years}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+  
 
         {/* Skills Section - 3 Categories */}
         <section id="skills" style={styles.card}>
@@ -1673,7 +1750,7 @@ const styles = {
     textAlign: 'center',
     padding: '2rem 1rem',
     background: 'linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%)',
-    border: '4px solid #3a3a3a',
+    border: '4px sol id #3a3a3a',
     borderRadius: '12px',
     boxShadow: '0 8px 0 #000, inset 0 2px 0 rgba(255,255,255,0.05)',
     marginTop: '2rem'
