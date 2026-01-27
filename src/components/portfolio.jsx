@@ -2,7 +2,6 @@
 
 
 import React, { useState, useEffect } from "react";
-import Resume from '../assets/Resume.pdf';
 import Photo from '../assets/Photo.img.jpeg';
 
 const user = {
@@ -15,7 +14,7 @@ const user = {
   whatsapp: "https://wa.me/6304211149",
   github: "https://github.com/Gadisatyanarayana",
   linkedin: "https://www.linkedin.com/in/gadi-satya-narayana-270b31296",
-  resume: Resume,
+  resume: '/Resume.pdf',
   education: [
     { 
       course: "B.Tech in Computer Science", 
